@@ -1,13 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 :root {
   font-family: 'Fira Code', monospace;
   color: #ffffff;
-  background-color: #0d1117; /* GitHub dark mode color */
+  background-color: #0d1117;
 }
 
-/* Global styles */
+/* Global Styles */
 body, html {
   margin: 0;
   padding: 0;
@@ -21,106 +22,69 @@ body, html {
   position: relative;
 }
 
-/* Background Code Effect */
-.code-background {
+/* Code Background Scrolling */
+.code-container {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 300%; /* Increased height for better scrolling */
+  height: 100%;
   overflow: hidden;
-  font-family: 'Fira Code', monospace;
-  font-size: 14px;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.15); /* Brighter for visibility */
-  white-space: pre-wrap;
+  pointer-events: none;
   z-index: -1;
-  opacity: 0.5;
-  animation: scrollBackground 30s linear infinite;
-}
-
-/* Code Scroll Effect */
-@keyframes scrollBackground {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-100%);
-  }
-}
-
-/* Styling for Main UI */
-.container {
-  max-width: 800px;
-  background-color: #1e1e1e;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
-  z-index: 10;
-}
-
-/* Header Styling */
-h1 {
-  font-size: 1.8rem;
-  font-weight: bold;
-  text-align: center;
-  color: #ffffff;
-}
-
-/* Button Styling */
-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #e94560;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
 }
 
-button:hover {
-  background: #d63050;
-  transform: scale(1.05);
+/* Single Scrolling Code Effect */
+.code-background {
+  position: absolute;
+  width: 100%;
+  height: 200%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  white-space: pre-wrap;
+  font-family: 'Fira Code', monospace;
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: center;
+  color: rgba(0, 255, 0, 0.5);
+  text-shadow: 0px 0px 5px rgba(0, 255, 0, 0.3);
+  animation: infiniteScroll var(--scroll-speed, 10s) linear infinite;
 }
 
-/* Light Mode Theme */
-.light-mode {
-  background-color: #ffffff;
-  color: #000000;
+/* Infinite Vertical Scrolling */
+@keyframes infiniteScroll {
+  from {
+    transform: translateY(0) translate3d(0, 0, 0);
+  }
+  to {
+    transform: translateY(-50%) translate3d(0, 0, 0);
+  }
 }
 
-.light-mode .container {
-  background-color: #f9f9f9;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+/* Gradient Overlay to Improve Readability */
+.code-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8));
+  pointer-events: none;
+  z-index: -1;
 }
 
-.light-mode button {
-  background: #007bff;
+/* Light Mode Adjustments */
+.light-mode .code-background {
+  color: rgba(0, 0, 0, 0.8);
+  text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px);
 }
 
-.light-mode button:hover {
-  background: #0056b3;
-}
-
-/* Dark Mode Theme */
-.dark-mode {
-  background-color: #0d1117;
-  color: #ffffff;
-}
-
-.dark-mode .container {
-  background-color: #1e1e1e;
-}
-
-.dark-mode button {
-  background: #e94560;
-}
-
-.dark-mode button:hover {
-  background: #d63050;
+.light-mode .code-overlay {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.8));
 }
