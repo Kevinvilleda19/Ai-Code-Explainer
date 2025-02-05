@@ -5,6 +5,9 @@ import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { oneDark } from "@codemirror/theme-one-dark";
 
+// Local Backend API URL
+const API_URL = "http://127.0.0.1:5000/explain"; // Updated to local backend
+
 // Simulated Background Code for Scrolling Effect
 const generateDummyCode = () => {
   return `
@@ -50,7 +53,7 @@ function App() {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:5000/explain", {
+      const response = await fetch(API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -90,11 +93,13 @@ function App() {
 
       {/* Main UI */}
       <div className="w-full max-w-3xl p-6 bg-opacity-95 rounded-lg shadow-lg z-10 relative transition-all duration-300 ease-in-out border border-gray-700 bg-gray-800">
-        <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold">AI-Powered Code Explainer</h1>
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-5xl font-extrabold bg-gradient-to-r from-pink-500 to-yellow-500 text-transparent bg-clip-text drop-shadow-2xl text-center animate-pulse w-full">
+            AlgoAura
+          </h1>
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="px-3 py-1 bg-gray-700 text-white rounded-md hover:bg-gray-600 transition-all"
+            className="px-4 py-2 bg-gray-700 text-white text-lg rounded-md hover:bg-gray-600 transition-all shadow-lg"
           >
             {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
           </button>
@@ -112,11 +117,11 @@ function App() {
 
         {/* Explain Button */}
         <button
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 flex items-center justify-center mt-4 transition-all"
+          className="w-full bg-blue-500 text-white py-3 px-6 rounded-lg hover:bg-blue-600 flex items-center justify-center mt-4 transition-all shadow-xl"
           onClick={handleExplain}
           disabled={loading}
         >
-          {loading ? <ClipLoader size={20} color="#ffffff" /> : "Explain"}
+          {loading ? <ClipLoader size={24} color="#ffffff" /> : "Explain"}
         </button>
 
         {/* Explanation Section */}
@@ -126,7 +131,7 @@ function App() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="mt-6 p-4 bg-gray-700 rounded-lg"
+              className="mt-6 p-4 bg-gray-700 rounded-lg shadow-lg"
             >
               <h2 className="text-xl font-semibold mb-2">Explanation:</h2>
               <p className="text-gray-200">{explanation}</p>
